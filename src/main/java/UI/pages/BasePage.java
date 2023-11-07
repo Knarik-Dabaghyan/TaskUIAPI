@@ -12,8 +12,4 @@ public class BasePage {
         this.driver = driver;
         waits = new Waits(driver);
     }
-    public void setup() {
-        driver = DriverSingleton.getDriver();
-        driver.get("https://mail.google.com/");
-    }
 }

@@ -8,11 +8,9 @@ public class UserCreator {
     public static final String TESTDATA_USER_PASSWORD = "testdata.user.password";
 
     public static User getCredentialsFromProperty() {
-        User testUser = new User.UserBuilder()
+        return User.builder()
                 .userEmail(TestDataReader.getTestData(TESTDATA_USER_NAME))
-                .password(TestDataReader.getTestData(TESTDATA_USER_PASSWORD))
+                .userPassword(TestDataReader.getTestData(TESTDATA_USER_PASSWORD))
                 .build();
-        return testUser;
-
     }
 }
