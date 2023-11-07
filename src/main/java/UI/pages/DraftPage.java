@@ -11,9 +11,7 @@ import UI.utils.Waits;
 
 import java.util.List;
 
-public class DraftPage {
-    WebDriver driver;
-    Waits waits;
+public class DraftPage extends BasePage{
     Logger logger = LogManager.getRootLogger();
 
     private final String allMailsDraftsLocator = "//span[text() = 'Draft']//ancestor::tr[@role = 'row']";
@@ -21,13 +19,10 @@ public class DraftPage {
     private List<WebElement> allMailsInDrafts;
 
     private final String allMailsSubjectLocator = "//span[@class = 'bog']/span";
-
-    public DraftPage(WebDriver driver, Waits wait) {
-        this.waits = wait;
-        this.driver = driver;
+    public DraftPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
-
     public void openLastMailFromDrafts() {
         waits.waitElementToBeClickableByLocator(By.xpath(allMailsDraftsLocator));
         allMailsInDrafts.get(0).click();
