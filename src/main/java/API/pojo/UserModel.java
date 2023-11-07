@@ -16,5 +16,4 @@ public class UserModel {
     private int id;
     private String title;
     private boolean completed;
-
 }
