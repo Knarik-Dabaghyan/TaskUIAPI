@@ -6,8 +6,6 @@ import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasItem;
-
 public class UserApi {
     public static final String BASE_URL = "https://jsonplaceholder.typicode.com";
     public static final String USER_ENDPOINT = "/todos";
@@ -37,16 +35,19 @@ public class UserApi {
                 .delete(SINGLE_USER_ENDPOINT)
                 .then();
     }
-
+    public static ValidatableResponse updateUserWithPut(int id) {
+        return given()
+                .spec(requestSpecificationWithParam(id))
+                .when()
+                .put(SINGLE_USER_ENDPOINT)
+                .then();
+    }
     public static ValidatableResponse readParticularUser(int id) {
         return given()
-                .log()
-                .all()
                 .spec(requestSpecificationWithParam(id))
                 .when()
                 .get(SINGLE_USER_ENDPOINT)
                 .then();
-
     }
 
     private static RequestSpecification requestSpecification() {

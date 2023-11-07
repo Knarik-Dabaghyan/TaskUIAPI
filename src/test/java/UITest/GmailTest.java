@@ -14,44 +14,23 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 
-public class GmailTest {
-    WebDriver driver;
-    Waits waits;
+public class GmailTest extends BaseTest {
     SoftAssert softAssert;
-    LoginPage loginPage;
-    GmailMainPage gmailMainPage;
-    SentPage sentPage;
-    MailCreatingPage mailCreatingPage;
-    DraftPage draftPage;
     private final String mailSubjectText = "hello";
     private final String mailBodyText = "test message";
     private final String otherUserMail = "knarikdabaghyan@gmail.com";
     private String name = "Knarik";
     int sentMailsBeforeSendinNewMail;
     int draftsQuantityAfterCreatingNewMail;
-
-    @BeforeMethod
-    public void login() {
-        driver = DriverSingleton.getDriver();
-        driver.get("https://mail.google.com/");
-        waits = new Waits(driver);
-        loginPage = new LoginPage(driver, waits);
-        gmailMainPage = new GmailMainPage(driver, waits);
-        sentPage = new SentPage(driver, waits);
-        mailCreatingPage = new MailCreatingPage(driver, waits);
-        draftPage = new DraftPage(driver, waits);
-
-        User testUser = UserCreator.getCredentialsFromProperty();
-        loginPage.login(testUser);
-    }
-
+    int draftsQuantityBeforeCreatingNewMail;
+    int draftsQuantityAfterSendingMail;
+    int sentMailsAfterSendingNewMail;
     @Test()
     public void gmailTest() {
         assertTrue(gmailMainPage.isInGmailPage(), "It's not Gmail main page");
-
         gmailMainPage.openSentMails();
         sentMailsBeforeSendinNewMail = sentPage.getSentMailsCount();
-        int draftsQuantityBeforeCreatingNewMail = gmailMainPage.getDraftsQuantity();
+        draftsQuantityBeforeCreatingNewMail = gmailMainPage.getDraftsQuantity();
         gmailMainPage.clickOnComposeButton();
         mailCreatingPage.enterOtherUserEmail(otherUserMail);
         mailCreatingPage.enterSubjectText(mailSubjectText);
@@ -68,10 +47,10 @@ public class GmailTest {
         softAssert.assertAll();
 
         mailCreatingPage.clickSendButton();
-        int draftsQuantityAfterSendingMail = gmailMainPage.getDraftsQuantity();
+        draftsQuantityAfterSendingMail = gmailMainPage.getDraftsQuantity();
         assertEquals(draftsQuantityAfterSendingMail, draftsQuantityAfterCreatingNewMail - 1, "After sending mail, mail isn't disappeared from drafts");
         gmailMainPage.openSentMails();
-        int sentMailsAfterSendingNewMail = sentPage.getSentMailsCount();
+        sentMailsAfterSendingNewMail = sentPage.getSentMailsCount();
         assertEquals(sentMailsBeforeSendinNewMail + 1, sentMailsAfterSendingNewMail, "Sent mail isn't in Sent folder");
 
         gmailMainPage.signOut();
@@ -97,8 +76,4 @@ public class GmailTest {
         gmailMainPage.openAlertWindow();
     }
 
-    @AfterMethod
-    public void tearDown() {
-        DriverSingleton.closeDriver();
-    }
 }

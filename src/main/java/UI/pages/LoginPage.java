@@ -10,9 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import UI.model.User;
 import UI.utils.Waits;
 
-public class LoginPage {
-    private final WebDriver driver;
-    private Waits waits;
+public class LoginPage extends BasePage{
     Logger logger = LogManager.getRootLogger();
     private final String nextButtonLocator = "//div[@id='identifierNext']";
     private final String passwordLocator = "password";
@@ -30,12 +28,10 @@ public class LoginPage {
     @FindBy(xpath = nextButtonLocator)
     private WebElement nextButton;
 
-    public LoginPage(WebDriver driver, Waits waits) {
-        this.driver = driver;
-        this.waits = waits;
+    public LoginPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
-
     public void login(User user) {
         waits.waitElementToBeClickableByLocator(By.xpath(nextButtonLocator));
         emailFiled.sendKeys(user.getUserEmail());

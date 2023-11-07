@@ -12,28 +12,24 @@ import UI.utils.Waits;
 
 import java.util.List;
 
-public class SentPage {
-    WebDriver driver;
-    Waits waits;
+public class SentPage extends BasePage {
     Logger logger = LogManager.getRootLogger();
 
     private final String allSentMailsLocator = "//div[text() = 'To: ']//ancestor::tr[@role = 'row']";
     @FindBy(xpath = allSentMailsLocator)
     private List<WebElement> allSentMails;
 
-    public SentPage(WebDriver driver, Waits waits) {
-        this.waits = waits;
-        this.driver = driver;
+    public SentPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
-
     public int getSentMailsCount() {
         try {
             waits.waitElementVisibility(By.xpath(allSentMailsLocator));
         } catch (TimeoutException exception) {
             return 0;
         }
-        logger.info("sent mails count is"+allSentMails.size());
+        logger.info("sent mails count is" + allSentMails.size());
         return allSentMails.size();
     }
 }

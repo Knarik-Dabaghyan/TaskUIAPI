@@ -8,11 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import UI.utils.Waits;
 
-public class GmailMainPage {
-    WebDriver driver;
-    Waits waits;
+public class GmailMainPage extends BasePage{
     Logger logger = LogManager.getRootLogger();
-
     private final String gmailPageIdentifierLocator = "//a[@title = 'Gmail' and @class = 'gb_ke gb_pc gb_ie']";
     @FindBy(xpath = gmailPageIdentifierLocator)
     private WebElement gmailPageIdentifier;
@@ -57,13 +54,10 @@ public class GmailMainPage {
     private final String signOutButtonLocator = "//a[text() = 'Sign out']";
     @FindBy(xpath = signOutButtonLocator)
     private WebElement signOutButton;
-
-    public GmailMainPage(WebDriver driver, Waits waits) {
-        this.waits = waits;
-        this.driver = driver;
+    public GmailMainPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
-
     public int getDraftsQuantity() {
         waits.waitElementToBeClickableByLocator(By.xpath(draftsQuantityLocator));
         logger.info("draft quantity is "+draftsQuantity.getText());

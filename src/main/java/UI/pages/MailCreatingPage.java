@@ -7,11 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import UI.utils.Waits;
 
-public class MailCreatingPage {
-    WebDriver driver;
-    Waits waits;
+public class MailCreatingPage extends BasePage{
     Logger logger = LogManager.getRootLogger();
 
     private final String sendToLocator = "to";
@@ -40,10 +37,8 @@ public class MailCreatingPage {
     private final String mailSubjectTextLocator = "//div[@class = 'aYF']//span";
     @FindBy(xpath = mailSubjectTextLocator)
     private WebElement mailSubjectText;
-
-    public MailCreatingPage(WebDriver driver, Waits waits) {
-        this.waits = waits;
-        this.driver = driver;
+    public MailCreatingPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
