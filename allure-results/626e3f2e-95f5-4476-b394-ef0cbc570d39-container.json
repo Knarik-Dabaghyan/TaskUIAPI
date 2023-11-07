@@ -1,1 +1,0 @@
-{"uuid":"626e3f2e-95f5-4476-b394-ef0cbc570d39","name":"ApiTest.UserTest","children":["b4b003e5-a036-4927-9925-0212ba340f42"],"befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1699270324820,"stop":1699270326008}],"afters":[],"links":[],"start":1699270324789,"stop":1699270328801}
